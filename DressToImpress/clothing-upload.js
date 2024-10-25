@@ -1,69 +1,82 @@
+// Import necessary Firebase functions
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
+
+// Your Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyAd69N8VERMqaeLIm9uzo0_ShLtHEraICw",
+    authDomain: "software-design-6df8b.firebaseapp.com",
+    projectId: "software-design-6df8b",
+    storageBucket: "software-design-6df8b.appspot.com",
+    messagingSenderId: "493377947827",
+    appId: "1:493377947827:web:51d4ca3f48a36f66cf08c6"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+
+// DOM Elements
 const userImage = document.getElementById('userImage');
 const clothingImage = document.getElementById('clothingImage');
 const container = document.querySelector('.container');
-const containerHeight = 500; // Fixed height of the box
-const containerWidth = 300; // Fixed width of the box
+const containerHeight = 500;
+const containerWidth = 300;
 
-// Initial position for clothing image
-let clothingX = 0;
-let clothingY = 0;
+// Load user image from local storage
+window.onload = () => {
+    const userImageData = localStorage.getItem('userImage');
+    if (userImageData) {
+        userImage.src = userImageData;
+        resizeUserImage();
+    }
+};
 
-// Add event listeners for dragging
+// Dragging functionality
 let isDragging = false;
+let offsetX, offsetY;
 
 clothingImage.addEventListener('mousedown', (e) => {
     isDragging = true;
-    clothingImage.style.pointerEvents = 'auto'; // Enable pointer events for dragging
     offsetX = e.clientX - clothingImage.getBoundingClientRect().left;
     offsetY = e.clientY - clothingImage.getBoundingClientRect().top;
+    document.body.style.userSelect = "none"; // Prevent text selection
+    e.preventDefault();
 });
 
 document.addEventListener('mouseup', () => {
     isDragging = false;
+    document.body.style.userSelect = "auto"; // Re-enable text selection
 });
 
 document.addEventListener('mousemove', (e) => {
     if (isDragging) {
-        clothingX = e.clientX - container.getBoundingClientRect().left - offsetX;
-        clothingY = e.clientY - container.getBoundingClientRect().top - offsetY;
+        let clothingX = e.clientX - container.getBoundingClientRect().left - offsetX;
+        let clothingY = e.clientY - container.getBoundingClientRect().top - offsetY;
 
         // Constrain the clothing image within the container
-        if (clothingX < 0) clothingX = 0;
-        if (clothingY < 0) clothingY = 0;
-        if (clothingX + clothingImage.offsetWidth > containerWidth) {
-            clothingX = containerWidth - clothingImage.offsetWidth;
-        }
-        if (clothingY + clothingImage.offsetHeight > containerHeight) {
-            clothingY = containerHeight - clothingImage.offsetHeight;
-        }
+        clothingX = Math.max(0, Math.min(clothingX, containerWidth - clothingImage.offsetWidth));
+        clothingY = Math.max(0, Math.min(clothingY, containerHeight - clothingImage.offsetHeight));
 
+        // Apply the new position
         clothingImage.style.transform = `translate(${clothingX}px, ${clothingY}px)`;
     }
 });
 
-// Load user image from local storage
-window.onload = function() {
-    const userImageData = localStorage.getItem('userImage');
-    if (userImageData) {
-        document.getElementById('userImage').src = userImageData; // Set user image
-        resizeUserImage(); // Call resize function after setting the image
-    }
-};
-
-function uploadClothingImage() {
+// Function to upload clothing image
+async function uploadClothingImage() {
     const clothingFile = document.getElementById('clothingUpload').files[0];
 
-    if (!clothingFile || (clothingFile.type !== 'image/png' && clothingFile.type !== 'image/jpeg')) {
+    if (!clothingFile || !['image/png', 'image/jpeg'].includes(clothingFile.type)) {
         alert('Please upload a valid PNG or JPEG image for clothing.');
         return;
     }
 
     const clothingReader = new FileReader();
-    clothingReader.onload = async function(event) {
+    clothingReader.onload = async (event) => {
         clothingImage.src = event.target.result; // Set clothing image
 
-        // Background removal logic (similar to your previous code)
-        const apiKey = '';//'vFw5rFNQVkgqjJbrK8PH1N99';  //HBzT8esCnrCctLiS4YuxfLTZ - guarin ... emG3uH22a7D3BGBbwAPht3qg - mot ... mike api here ... hans api here
+        const apiKey = 'HBzT8esCnrCctLiS4YuxfLTZ';   //HBzT8esCnrCctLiS4YuxfLTZ - guarin ... emG3uH22a7D3BGBbwAPht3qg - mot ... mike api here ... hans api here ... vFw5rFNQVkgqjJbrK8PH1N99(mj ubos na)
         const formData = new FormData();
         formData.append('image_file', clothingFile);
         formData.append('size', 'auto');
@@ -71,15 +84,13 @@ function uploadClothingImage() {
         try {
             const response = await fetch('https://api.remove.bg/v1.0/removebg', {
                 method: 'POST',
-                headers: {
-                    'X-Api-Key': apiKey,
-                },
+                headers: { 'X-Api-Key': apiKey },
                 body: formData,
             });
 
             if (response.ok) {
                 const blob = await response.blob();
-                clothingImage.src = URL.createObjectURL(blob); // Set the image with removed background
+                clothingImage.src = URL.createObjectURL(blob); // Set image with removed background
             } else {
                 console.error('Error removing background:', response.statusText);
             }
@@ -90,46 +101,43 @@ function uploadClothingImage() {
     clothingReader.readAsDataURL(clothingFile);
 }
 
-function useSampleClothing(imagePath) {
-    // Create a new image object
-    const sampleClothingImage = new Image();
-    sampleClothingImage.src = imagePath;
+// Function to load sample clothing images
+function loadSampleClothingImages() {
+    const clothingImagesRef = ref(storage, 'Mga damit/');
+    const sampleClothingContainer = document.getElementById('sampleClothingContainer');
 
-    sampleClothingImage.onload = function() {
-        clothingImage.src = sampleClothingImage.src; // Set the sample clothing image
-
-        // Optional: If you want to apply background removal on sample images
-        // You can add the background removal logic here as needed
-    };
+    listAll(clothingImagesRef).then((result) => {
+        result.items.forEach((imageRef) => {
+            getDownloadURL(imageRef).then((url) => {
+                const imgElement = document.createElement('img');
+                imgElement.src = url;
+                imgElement.classList.add('sample');
+                imgElement.onclick = () => useSampleClothing(url);
+                sampleClothingContainer.appendChild(imgElement);
+            }).catch(console.error);
+        });
+    }).catch(console.error);
 }
 
-// Resize user image after it is loaded
-userImage.onload = function() {
-    resizeUserImage(); // Resize the user image to fit in the container
-    resizeClothing(); // Resize clothing after user image is resized
-};
+// Load sample clothing images when the page loads
+document.addEventListener('DOMContentLoaded', loadSampleClothingImages);
 
-// Function to resize user image to fit in the container
+// Function to use a sample clothing image
+function useSampleClothing(imagePath) {
+    clothingImage.src = imagePath; // Set the sample clothing image
+}
+
+// Resize user image to fit in the container
 function resizeUserImage() {
     const userImageRect = userImage.getBoundingClientRect();
-    
-    const maxWidth = containerWidth;   // Container width
-    const maxHeight = containerHeight;  // Container height
-
-    const scaleX = maxWidth / userImageRect.width;
-    const scaleY = maxHeight / userImageRect.height;
-    const scaleFactor = Math.min(scaleX, scaleY); // Use the smaller scaling factor to maintain aspect ratio
+    const scaleFactor = Math.min(containerWidth / userImageRect.width, containerHeight / userImageRect.height);
 
     userImage.style.width = `${userImageRect.width * scaleFactor}px`;
     userImage.style.height = `${userImageRect.height * scaleFactor}px`;
-
-    const centerX = (maxWidth - userImageRect.width * scaleFactor) / 2;
-    const centerY = (maxHeight - userImageRect.height * scaleFactor) / 2;
-
-    userImage.style.transform = `translate(${centerX}px, ${centerY}px)`; 
+    userImage.style.transform = `translate(${(containerWidth - userImageRect.width * scaleFactor) / 2}px, ${(containerHeight - userImageRect.height * scaleFactor) / 2}px)`;
 }
 
-// Function to resize clothing based on user height and selected size
+// Resize clothing image based on user height and selected size
 function resizeClothing() {
     const userHeight = parseFloat(document.getElementById('userHeight').value);
     const clothingSize = document.getElementById('clothingSize').value;
@@ -139,33 +147,21 @@ function resizeClothing() {
         return;
     }
 
-    const userHeightCm = userHeight;
+    const sizes = {
+        small: { length: 66, width: 46 },
+        medium: { length: 70, width: 50 },
+        large: { length: 74, width: 54 },
+    };
 
-    let clothingLength, clothingWidth;
-    switch (clothingSize) {
-        case 'small':
-            clothingLength = 66;
-            clothingWidth = 46;
-            break;
-        case 'medium':
-            clothingLength = 70;
-            clothingWidth = 50;
-            break;
-        case 'large':
-            clothingLength = 74;
-            clothingWidth = 54;
-            break;
-        default:
-            alert('Please select a clothing size.');
-            return;
-    }
+    const { length: clothingLength } = sizes[clothingSize];
+    const scaleFactor = clothingLength / userHeight;
 
-    const scaleFactor = (clothingLength / userHeightCm); // Compare clothing length to user's height
-    const clothingHeightInBox = containerHeight * scaleFactor; // Scaled clothing height in pixels
-
-    clothingImage.style.height = `${clothingHeightInBox}px`;
-    clothingImage.style.width = 'auto'; // Maintain aspect ratio for width
+    clothingImage.style.height = `${containerHeight * scaleFactor}px`;
+    clothingImage.style.width = 'auto'; // Maintain aspect ratio
 }
 
 // Resize clothing image after it is loaded
 clothingImage.onload = resizeClothing;
+
+// Attach the overlay button's functionality
+document.querySelector('button').addEventListener('click', uploadClothingImage);

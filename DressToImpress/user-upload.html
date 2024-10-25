@@ -10,16 +10,14 @@
     <div class="container">
         <h2>Upload Your Image</h2>
         <input type="file" id="userUpload" accept="image/png, image/jpeg">
-        <button onclick="uploadImages()">Next Step</button>
+        <button id="uploadButton">Next Step</button>
         
         <p>No image? Try one of these:</p>
-        <div class="sample-images">
-            <img src="User sample/man1.jpg" alt="Sample 1" class="sample" onclick="useSampleImage('User sample/man1.jpg')">
-            <img src="User sample/man2.png" alt="Sample 2" class="sample" onclick="useSampleImage('User sample/man2.png')">
-            <img src="path/to/sample3.jpg" alt="Sample 3" class="sample" onclick="useSampleImage('path/to/sample3.jpg')">
+        <div class="sample-images" id="sampleImagesContainer">
+            <!-- Images will be loaded dynamically here -->
         </div>
     </div>
     
-    <script src="user-upload.js"></script>
+    <script type="module" src="user-upload.js"></script>
 </body>
 </html>

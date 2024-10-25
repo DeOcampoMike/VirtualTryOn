@@ -11,7 +11,7 @@
 <h2>Upload Your Clothing Image</h2>
 <div class="container">
     <img id="userImage" src="" alt="User Image">
-    <img id="clothingImage" src="" alt="Clothing Image" draggable="false">
+    <img id="clothingImage" src="" alt="Clothing Image" draggable="false" style="position: absolute; top: 0; left: 0;">
 </div>
 
 <div class="controls">
@@ -29,17 +29,12 @@
     <button onclick="uploadClothingImage()">Overlay Clothing</button>
 
     <p>No clothing image? Try one of these:</p>
-    <div class="sample-images">
-        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')">
-        <img src="path/to/sample-clothing2.png" alt="Sample Clothing 2" class="sample" onclick="useSampleClothing('path/to/sample-clothing2.png')">
-        <img src="path/to/sample-clothing3.png" alt="Sample Clothing 3" class="sample" onclick="useSampleClothing('path/to/sample-clothing3.png')">
-        <img src="path/to/sample-clothing3.png" alt="Sample Clothing 3" class="sample" onclick="useSampleClothing('path/to/sample-clothing3.png')">
-        <img src="path/to/sample-clothing3.png" alt="Sample Clothing 3" class="sample" onclick="useSampleClothing('path/to/sample-clothing3.png')">
-
+    <div class="sample-images" id="sampleClothingContainer">
+        <!-- Clothing sample images will be dynamically loaded here -->
     </div>
 </div>
 
-<script src="clothing-upload.js"></script>
+<script type="module" src="clothing-upload.js"></script>
 
 </body>
 </html>

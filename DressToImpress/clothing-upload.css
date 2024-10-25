@@ -47,3 +47,7 @@ body {
     border: 1px solid #ccc; /* Optional border for clarity */
     border-radius: 5px; /* Optional rounded corners */
 }
+
+.container img {
+    position: absolute; /* Ensure images are absolutely positioned */
+}
