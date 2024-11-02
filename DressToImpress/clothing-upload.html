@@ -8,10 +8,23 @@
 </head>
 <body>
 
+<nav class="navbar">
+    <div class="navdiv">
+        <div class="logo"><a href="#">Dress To Impress</a></div>
+        <ul>
+            <li><a href="user-upload.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+</main>
 <h2>Upload Your Clothing Image</h2>
 <div class="container">
     <img id="userImage" src="" alt="User Image">
-    <img id="clothingImage" src="" alt="Clothing Image" draggable="false">
+    <img id="clothingImage" src="" alt="Clothing Image" draggable="false" onerror="this.style.display='none'" style="display:none;">
 </div>
 
 <div class="controls">
@@ -19,25 +32,46 @@
     <input type="number" id="userHeight" placeholder="e.g. 160" min="0" step="0.1"> 
 
     <label for="clothingSize">Select clothing size:</label>
-    <select id="clothingSize">
-        <option value="small">Small (66cm x 46cm)</option>
-        <option value="medium">Medium (70cm x 50cm)</option>
-        <option value="large">Large (74cm x 54cm)</option>
-    </select>
+ <select id="clothingSize">
+    <option value="xxs">XXS Men (66cm x 81cm)</option>
+    <option value="xs">XS Men (69cm x 86cm)</option>
+    <option value="small">S Men (71cm x 91cm)</option>
+    <option value="medium">M Men (74cm x 96cm)</option>
+    <option value="large">L Men (76cm x 101cm)</option>
+    <option value="xl">XL Men (79cm x 106cm)</option>
+    <option value="xxl">XXL Men (81cm x 112cm)</option>
+    <option value="xxxl">XXXL Men (84cm x 117cm)</option>
+    <option value="small women">S Women (69cm x 86cm)</option>
+    <option value="medium women">M Women (71cm x 91cm)</option>
+    <option value="large women">L Women (74cm x 96cm)</option>
+    <option value="xl women">XL Women (76cm x 101cm)</option>
+    <option value="xxl women">XXL Women (79cm x 106cm)</option>
+    <option value="xxxl women">3XL Women (81cm x 112cm)</option>
+</select>
 
-    <input type="file" id="clothingUpload" accept="image/*">
-    <button onclick="uploadClothingImage()">Overlay Clothing</button>
+
+    <label class="custom-file-upload">
+        <input type="file" id="clothingUpload" accept="image/*" />
+        <button onclick="uploadClothingImage()">Overlay Clothing</button>
+    </label>
+
+    
 
     <p>No clothing image? Try one of these:</p>
     <div class="sample-images">
-        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')">
-        <img src="path/to/sample-clothing2.png" alt="Sample Clothing 2" class="sample" onclick="useSampleClothing('path/to/sample-clothing2.png')">
-        <img src="path/to/sample-clothing3.png" alt="Sample Clothing 3" class="sample" onclick="useSampleClothing('path/to/sample-clothing3.png')">
-        <img src="path/to/sample-clothing3.png" alt="Sample Clothing 3" class="sample" onclick="useSampleClothing('path/to/sample-clothing3.png')">
-        <img src="path/to/sample-clothing3.png" alt="Sample Clothing 3" class="sample" onclick="useSampleClothing('path/to/sample-clothing3.png')">
-
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
+        <img src="Mga damit/t shirt.png" alt="Sample Clothing 1" class="sample" onclick="useSampleClothing('Mga damit/t shirt.png')" onerror="this.style.display='none'">
     </div>
 </div>
+
 
 <script src="clothing-upload.js"></script>
 

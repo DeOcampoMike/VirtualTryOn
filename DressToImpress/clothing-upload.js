@@ -94,6 +94,8 @@ function useSampleClothing(imagePath) {
     // Create a new image object
     const sampleClothingImage = new Image();
     sampleClothingImage.src = imagePath;
+    clothingImage.style.display = 'block'; // Show clothing image
+    document.getElementById('noImageMessage').style.display = 'none'; // Hide no image message
 
     sampleClothingImage.onload = function() {
         clothingImage.src = sampleClothingImage.src; // Set the sample clothing image
@@ -102,6 +104,8 @@ function useSampleClothing(imagePath) {
         // You can add the background removal logic here as needed
     };
 }
+
+
 
 // Resize user image after it is loaded
 userImage.onload = function() {
@@ -142,23 +146,71 @@ function resizeClothing() {
     const userHeightCm = userHeight;
 
     let clothingLength, clothingWidth;
-    switch (clothingSize) {
+
+    switch (clothingSize.toLowerCase()) { // Convert the input to lowercase for consistency
+        case 'xxs':
+            clothingLength = 66; // Length for XXS in cm
+            clothingWidth = 81; // Chest width for XXS in cm
+            break;
+        case 'xs':
+            clothingLength = 69; // Length for XS in cm
+            clothingWidth = 86; // Chest width for XS in cm
+            break;
         case 'small':
-            clothingLength = 66;
-            clothingWidth = 46;
+            clothingLength = 71; // Length for Small in cm
+            clothingWidth = 91; // Chest width for Small in cm
             break;
         case 'medium':
-            clothingLength = 70;
-            clothingWidth = 50;
+            clothingLength = 74; // Length for Medium in cm
+            clothingWidth = 96; // Chest width for Medium in cm
             break;
         case 'large':
-            clothingLength = 74;
-            clothingWidth = 54;
+            clothingLength = 76; // Length for Large in cm
+            clothingWidth = 101; // Chest width for Large in cm
+            break;
+        case 'xl':
+            clothingLength = 79; // Length for XL in cm
+            clothingWidth = 106; // Chest width for XL in cm
+            break;
+        case 'xxl':
+            clothingLength = 81; // Length for XXL in cm
+            clothingWidth = 112; // Chest width for XXL in cm
+            break;
+        case 'xxxl':
+            clothingLength = 84; // Length for XXXL in cm
+            clothingWidth = 117; // Chest width for XXXL in cm
+            break;
+        case 'small women':
+            clothingLength = 69; // Length for Small Women in cm
+            clothingWidth = 86; // Bust width for Small Women in cm
+            break;
+        case 'medium women':
+            clothingLength = 71; // Length for Medium Women in cm
+            clothingWidth = 91; // Bust width for Medium Women in cm
+            break;
+        case 'large women':
+            clothingLength = 74; // Length for Large Women in cm
+            clothingWidth = 96; // Bust width for Large Women in cm
+            break;
+        case 'xl women':
+            clothingLength = 76; // Length for XL Women in cm
+            clothingWidth = 101; // Bust width for XL Women in cm
+            break;
+        case 'xxl women':
+            clothingLength = 79; // Length for XXL Women in cm
+            clothingWidth = 106; // Bust width for XXL Women in cm
+            break;
+        case 'xxxl women':
+            clothingLength = 81; // Length for XXXL Women in cm
+            clothingWidth = 112; // Bust width for XXXL Women in cm
             break;
         default:
-            alert('Please select a clothing size.');
+            alert('Please select a valid clothing size.');
             return;
     }
+    
+    // Now you can use clothingLength and clothingWidth as needed
+    
 
     const scaleFactor = (clothingLength / userHeightCm); // Compare clothing length to user's height
     const clothingHeightInBox = containerHeight * scaleFactor; // Scaled clothing height in pixels
@@ -167,5 +219,29 @@ function resizeClothing() {
     clothingImage.style.width = 'auto'; // Maintain aspect ratio for width
 }
 
+
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    const userImage = document.getElementById('userImage');
+    const noImageMessage = document.getElementById('noImageMessage');
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            userImage.src = e.target.result;
+            userImage.style.display = 'block'; // Show user image
+            noImageMessage.style.display = 'none'; // Hide no image message
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+
+function useSampleClothing(imagePath) {
+    const clothingImage = document.getElementById('clothingImage');
+    clothingImage.src = imagePath;
+    clothingImage.style.display = 'block'; // Show clothing image
+    document.getElementById('noImageMessage').style.display = 'none'; // Hide no image message
+}
 // Resize clothing image after it is loaded
 clothingImage.onload = resizeClothing;

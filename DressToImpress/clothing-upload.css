@@ -1,12 +1,13 @@
+/* Change the global font */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    flex-direction: column; /* Stack everything vertically */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Change to a modern font */
+    background: linear-gradient(to bottom, #929b9c, #ffffff); /* Gradient background for a fresh look */
+    flex-direction: column;
 }
 
 .container {
@@ -14,8 +15,10 @@ body {
     width: 300px;  /* Fixed width of the box/container */
     height: 500px; /* Fixed height of the box/container */
     overflow: hidden; /* Ensure any overflowing content is hidden */
-    background-color: #f2f2f2; /* Background color for visibility */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for the container */
     border: 1px solid #ccc; /* Optional border for clarity */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 #userImage {
@@ -46,4 +49,135 @@ body {
     cursor: pointer; /* Change cursor to pointer on hover */
     border: 1px solid #ccc; /* Optional border for clarity */
     border-radius: 5px; /* Optional rounded corners */
+    transition: transform 0.2s; /* Add transition for hover effect */
+}
+
+.sample-images img:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.navbar {
+    width: 100%;
+    padding: 10px 10px;
+    background-color: #333;
+    position: absolute; /* Fixes the navbar to the top */
+    top: 0; /* Aligns it to the top */
+    left: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add shadow to the navbar */
+}
+
+.navdiv {
+    display: flex;
+    justify-content: space-between; /* Space between logo and menu */
+    align-items: center;
+}
+
+.logo a {
+    color: #fff;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    gap: 15px;
+}
+
+ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: background 0.3s;
+}
+
+ul li a:hover {
+    background-color: #555;
+}
+
+button {
+    background-color: #555;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #1b1818;
+    transform: scale(1.05);
+}
+
+#userHeight, #clothingSize, #clothingUpload {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box; /* Ensures padding doesn’t affect total width */
+}
+
+#userHeight:focus, #clothingSize:focus, #clothingUpload:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#clothingSize {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray"><polygon points="5,8 10,13 15,8" /></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        height: auto;
+        max-width: 90vw;
+        max-height: 70vh;
+    }
+    
+    .sample-images img {
+        width: 60px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+}
+
+p {
+    text-align: center;          /* Center the text */
+    margin-top: 20px;           /* Optional: Add some space above */
+}
+
+.custom-file-upload {
+    display: flex;               /* Use flexbox to layout items */
+    justify-content: center;     /* Center items horizontally */
+    align-items: center;         /* Center items vertically */
+    margin: 20px 0;             /* Optional: Add some vertical spacing */
+}
+
+#clothingUpload {
+    margin-right: 10px;         /* Optional: Add space between input and button */
+}
+
+h2 {
+    padding: 30px;               /* Increase padding around the heading */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Change to the new font */
+    font-size: 24px;            /* Increase font size for better visibility */
+    color: #333;                /* Darker text color for better contrast */
+    text-align: center;         /* Center the text */
+    margin: 30px 0 10px;       /* Add more margin at the top and bottom */
+    text-transform: uppercase;   /* Optional: make the text uppercase */
+    letter-spacing: 1px;        /* Optional: add some letter spacing */
 }

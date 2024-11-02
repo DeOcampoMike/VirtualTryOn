@@ -6,7 +6,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-    flex-direction: column; /* Make everything stack vertically */
+    flex-direction: column;
 }
 
 .container {
@@ -40,4 +40,40 @@ body {
 
 .input-group {
     margin-bottom: 15px;
+}
+
+
+.navbar {
+    width: 100%; /* Take the full width of the page */
+    padding: 10px 20px;
+    background-color: #333;
+}
+
+.navdiv {
+    display: flex;
+    justify-content: space-between; /* Space between logo and menu */
+    align-items: center;
+}
+
+.logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    gap: 15px;
+}
+
+ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: background 0.3s;
+}
+
+ul li a:hover {
+    background-color: #555;
 }
