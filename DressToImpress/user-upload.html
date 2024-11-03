@@ -7,32 +7,31 @@
     <link rel="stylesheet" href="user-upload.css">
 </head>
 <body>
-    <nav class = "navbar">
+    <nav class="navbar">
         <div class="navdiv">
-            <div class="logo"><a href="#">Dress To Impresss</a></div>
-            <ul>
-                <li><a href="user-upload.html">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contant Us</a></li>
-            </ul>
+            <div class="logo"><a href="user-upload.html">Dress To Impress</a></div>
         </div>
     </nav>
     <div class="container">
-        <h2>Upload Your Image</h2>
+        <h2>
+            Upload Your Image 
+            <span class="tooltip">
+                <img src="tooltip.png" alt="Info" class="tooltip.png">
+                <span class="tooltiptext">Tutorial kung pano gumagana.</span>
+            </span>
+        </h2>
         <label class="custom-file-upload">
-        <input type="file" id="userUpload" accept="image/png, image/jpeg">
-        <button onclick="uploadImages()">Next Step</button>
+            <input type="file" id="userUpload" accept="image/png, image/jpeg">
+            <button id="uploadButton">Next Step</button>
         </label>
         
-        
         <p>No image? Try one of these:</p>
-        <div class="sample-images">
-            <img src="User sample/man1.jpg" alt="Sample 1" class="sample" onclick="useSampleImage('User sample/man1.jpg')"onerror="this.style.display='none'">
-            <img src="User sample/man2.png" alt="Sample 2" class="sample" onclick="useSampleImage('User sample/man2.png')"onerror="this.style.display='none'">
-            <img src="path/to/sample3.jpg" alt="Sample 3" class="sample" onclick="useSampleImage('path/to/sample3.jpg')"onerror="this.style.display='none'">
+        <div class="sample-images" id="sampleImagesContainer">
+            <!-- Sample images from Firebase Storage will be loaded here -->
         </div>
     </div>
-    
-    <script src="user-upload.js"></script>
+
+    <!-- Firebase and custom script -->
+    <script type="module" src="user-upload.js"></script>
 </body>
 </html>

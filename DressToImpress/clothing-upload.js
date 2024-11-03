@@ -100,8 +100,7 @@ function useSampleClothing(imagePath) {
     sampleClothingImage.onload = function() {
         clothingImage.src = sampleClothingImage.src; // Set the sample clothing image
 
-        // Optional: If you want to apply background removal on sample images
-        // You can add the background removal logic here as needed
+
     };
 }
 

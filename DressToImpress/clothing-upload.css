@@ -68,7 +68,7 @@ body {
 
 .navdiv {
     display: flex;
-    justify-content: space-between; /* Space between logo and menu */
+    justify-content: left; /* Space between logo and menu */
     align-items: center;
 }
 
